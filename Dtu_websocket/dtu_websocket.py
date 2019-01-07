@@ -196,8 +196,11 @@ class dtu_websocket(threading.Thread):
         #     send_msg["data"]["air_humidity"][0][1] = time.strftime("%H:%M:%S", time.localtime())
 
         #print(send_msg)
-        self.websocket_server.send_message(client, json.dumps(send_msg))
-
+        try:
+            self.websocket_server.send_message(client, json.dumps(send_msg))
+        except:
+            pass
+        
     def websocket_init(self):
         self.websocket_server = WebsocketServer(self.port, self.addr)
         self.websocket_server.set_fn_new_client(self.new_client)
